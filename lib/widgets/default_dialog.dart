@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_tools/extensions/stool_in_navigator_extensions.dart';
 import 'package:flutter_tools/extensions/translate_extension.dart';
 
+import 'default_dialog_params.dart';
+
 class DefaultDialog extends StatelessWidget {
   final String title;
   final String titleTranslate;
@@ -16,6 +18,7 @@ class DefaultDialog extends StatelessWidget {
   final String okButtonTextTranslate;
   final VoidCallback onOkButtonPressed;
   final bool isLoading;
+  final DefaultDialogParams defaultDialogParams;
   const DefaultDialog({
     Key? key,
     required this.title,
@@ -27,6 +30,7 @@ class DefaultDialog extends StatelessWidget {
     required this.okButtonText,
     required this.okButtonTextTranslate,
     required this.onOkButtonPressed,
+    required this.defaultDialogParams,
     this.isLoading = false,
   }) : super(key: key);
 
@@ -36,22 +40,16 @@ class DefaultDialog extends StatelessWidget {
       return CupertinoAlertDialog(
         title: Text(
           title.translateTo(titleTranslate),
-          style: const TextStyle(
-            color: Colors.black,
-            fontWeight: FontWeight.bold,
-          ),
+          style: defaultDialogParams.titleStyle,
         ),
         content: isLoading
-            ? const Padding(
-                padding: EdgeInsets.only(top: 10),
-                child: CircularProgressIndicator.adaptive(),
+            ? Padding(
+                padding: EdgeInsets.only(top: defaultDialogParams.topPadding),
+                child: const CircularProgressIndicator.adaptive(),
               )
             : Text(
                 description.translateTo(descriptionTransalate),
-                style: const TextStyle(
-                  color: Colors.black,
-                  fontSize: 12,
-                ),
+                style: defaultDialogParams.subTitleStyle,
               ),
         actions: <Widget>[
           TextButton(
@@ -60,18 +58,14 @@ class DefaultDialog extends StatelessWidget {
               cancelButtonText.translateTo(
                 cancelButtonTextTranslate,
               ),
-              style: const TextStyle(
-                color: Colors.red,
-              ),
+              style: defaultDialogParams.cancelButtonStyle,
             ),
           ),
           TextButton(
             onPressed: onOkButtonPressed,
             child: Text(
               okButtonText.translateTo(okButtonTextTranslate),
-              style: const TextStyle(
-                color: Colors.blue,
-              ),
+              style: defaultDialogParams.okButtonStyle
             ),
           ),
         ],
@@ -80,23 +74,17 @@ class DefaultDialog extends StatelessWidget {
       return AlertDialog(
         title: Text(
           title.translateTo(titleTranslate),
-          style: const TextStyle(
-            color: Colors.white,
-            fontWeight: FontWeight.bold,
-          ),
+          style: defaultDialogParams.titleStyle,
         ),
         content: isLoading
             ? const CircularProgressIndicator.adaptive()
             : Text(
                 description.translateTo(descriptionTransalate),
-                style: const TextStyle(
-                  color: Colors.white,
-                  fontSize: 12,
-                ),
+                style: defaultDialogParams.subTitleStyle,
               ),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(
-            15,
+            defaultDialogParams.borderRadius,
           ),
         ),
         actions: <Widget>[
@@ -106,18 +94,14 @@ class DefaultDialog extends StatelessWidget {
               cancelButtonText.translateTo(
                 cancelButtonTextTranslate,
               ),
-              style: const TextStyle(
-                color: Colors.blue,
-              ),
+              style: defaultDialogParams.cancelButtonStyle
             ),
           ),
           TextButton(
             onPressed: onOkButtonPressed,
             child: Text(
               okButtonText.translateTo(okButtonTextTranslate),
-              style: const TextStyle(
-                color: Colors.blue,
-              ),
+              style: defaultDialogParams.okButtonStyle,
             ),
           ),
         ],

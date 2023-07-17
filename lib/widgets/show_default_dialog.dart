@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_tools/widgets/default_dialog_params.dart';
 
 import 'default_dialog.dart';
 
@@ -16,6 +17,7 @@ Future<void> showDefaultDialog(
   required String okButtonText,
   required String okButtonTextTranslate,
   required VoidCallback onOkButtonPressed,
+  required DefaultDialogParams defaultDialogParams,
   bool isLoading = false,
 }) async {
   await showDialog(
@@ -26,6 +28,7 @@ Future<void> showDefaultDialog(
         elevation: elevation ?? 0,
         backgroundColor: backgroundColor ?? Colors.transparent,
         child: DefaultDialog(
+          defaultDialogParams: defaultDialogParams,
           title: title,
           titleTranslate: titleTranslate,
           description: description,
