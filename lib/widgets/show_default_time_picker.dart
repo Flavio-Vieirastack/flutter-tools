@@ -21,8 +21,9 @@ class ShowDefaultTimePicker {
         cupertinoDefaultTimePickerParams: cupertinoDefaultTimePickerParams,
         defaultTimePickerParams: defaultTimePickerParams,
       );
-      if (androidTimePicked == null) return;
-      onAndroidTimePicked.call(androidTimePicked);
+      onAndroidTimePicked.call(
+        androidTimePicked ?? DateTime.now(),
+      );
     } else if (Platform.isIOS) {
       await DefaultTimeAndDatePicker.showDefaultTimePicker(
         context,
