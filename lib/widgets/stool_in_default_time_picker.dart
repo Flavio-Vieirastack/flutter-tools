@@ -10,8 +10,8 @@ import 'cupertino_default_time_picker_params.dart';
 typedef AndroidTimePickerReturn = Future<TimeOfDay?>;
 typedef CupertinoTimePickerReturn = Widget;
 
-abstract mixin class DefaultTimeAndDatePicker {
-  Future<dynamic> _cupertinoDatePickerDialog(
+sealed class DefaultTimeAndDatePicker {
+  static Future<dynamic> _cupertinoDatePickerDialog(
     BuildContext context, {
     required DefaultTimePickerParams defaultTimePickerParams,
     required CupertinoDefaultTimePickerParams cupertinoDefaultTimePickerParams,
@@ -59,7 +59,7 @@ abstract mixin class DefaultTimeAndDatePicker {
     );
   }
 
-  Future<DateTime?>? showDefaultTimePicker(
+  static Future<DateTime?>? showDefaultTimePicker(
     BuildContext context, {
     required TimeOfDay initialTime,
     required DefaultTimePickerParams defaultTimePickerParams,
@@ -72,20 +72,44 @@ abstract mixin class DefaultTimeAndDatePicker {
         cupertinoDefaultTimePickerParams: cupertinoDefaultTimePickerParams,
       );
     } else {
-      final date = await showTimePicker(
+      if (defaultTimePickerParams.isAndroidDatePicker) {
+        final date = await showDatePicker(
           context: context,
-          initialTime: initialTime,
+          initialDate: DateTime.now(),
+          firstDate: DateTime.now(),
+          lastDate: DateTime.now().add(
+            const Duration(
+              days: 720,
+            ),
+          ),
           cancelText: 'Cancelar'.translateTo('Cancel'),
-          confirmText: 'Ok'.translateTo('Ok'));
-      final now = DateTime.now();
-      return DateTime(
-        now.year,
-        now.month,
-        now.day,
-        date?.hour ?? 0,
-        date?.minute ?? 0,
-      );
+          confirmText: 'Ok'.translateTo('Ok'),
+        );
+        final now = DateTime.now();
+        return DateTime(
+          now.year,
+          now.month,
+          now.day,
+          date?.hour ?? 0,
+          date?.minute ?? 0,
+        );
+      } else {
+        final date = await showTimePicker(
+            context: context,
+            initialTime: initialTime,
+            cancelText: 'Cancelar'.translateTo('Cancel'),
+            confirmText: 'Ok'.translateTo('Ok'));
+        final now = DateTime.now();
+        return DateTime(
+          now.year,
+          now.month,
+          now.day,
+          date?.hour ?? 0,
+          date?.minute ?? 0,
+        );
+      }
     }
+
     return null;
   }
 }
