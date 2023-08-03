@@ -9,6 +9,10 @@ abstract mixin class ZoomDialog {
     String? urlImage,
     File? fileImage,
     Uint8List? base64Image,
+    final double? minScale,
+    final double? maxScale,
+    final double? height,
+    final double? width,
     required double padding,
     required double borderRadius,
   }) {
@@ -34,13 +38,17 @@ abstract mixin class ZoomDialog {
       builder: (context) {
         return Padding(
           padding: EdgeInsets.symmetric(vertical: padding),
-          child: InteractiveViewer(
-            constrained: true,
-            minScale: 0.5,
-            maxScale: 2,
-            child: ClipRRect(
-              borderRadius: BorderRadius.circular(borderRadius),
-              child: image,
+          child: SizedBox(
+            height: height,
+            width: width,
+            child: InteractiveViewer(
+              constrained: true,
+              minScale: minScale ?? 0.5,
+              maxScale: maxScale ?? 2,
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(borderRadius),
+                child: image,
+              ),
             ),
           ),
         );
