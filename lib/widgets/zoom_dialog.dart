@@ -1,15 +1,31 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 abstract mixin class ZoomDialog {
   Future<void> showZoomDialog(
     BuildContext context, {
     String? urlImage,
     File? fileImage,
+    Uint8List? base64Image,
     required double padding,
     required double borderRadius,
   }) {
+    Widget? image;
+    if (urlImage != null) {
+      image = Image.network(
+        urlImage,
+        fit: BoxFit.cover,
+      );
+    } else if (fileImage != null) {
+      image = Image.file(
+        fileImage,
+        fit: BoxFit.cover,
+      );
+    } else if (base64Image != null) {
+      image = Image.memory(base64Image);
+    }
     return showDialog(
       context: context,
       builder: (context) {
@@ -21,15 +37,7 @@ abstract mixin class ZoomDialog {
             maxScale: 2,
             child: ClipRRect(
               borderRadius: BorderRadius.circular(borderRadius),
-              child: urlImage != null
-                  ? Image.network(
-                      urlImage,
-                      fit: BoxFit.cover,
-                    )
-                  : Image.file(
-                      fileImage!,
-                      fit: BoxFit.cover,
-                    ),
+              child: image,
             ),
           ),
         );
