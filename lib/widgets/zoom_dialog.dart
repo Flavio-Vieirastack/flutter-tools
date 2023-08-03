@@ -24,7 +24,10 @@ abstract mixin class ZoomDialog {
         fit: BoxFit.cover,
       );
     } else if (base64Image != null) {
-      image = Image.memory(base64Image);
+      image = Image.memory(
+        base64Image,
+        fit: BoxFit.cover,
+      );
     }
     return showDialog(
       context: context,
