@@ -62,6 +62,7 @@ sealed class DefaultTimeAndDatePicker {
   static Future<DateTime?>? showDefaultTimePicker(
     BuildContext context, {
     required TimeOfDay initialTime,
+    required Locale locale,
     required DefaultTimePickerParams defaultTimePickerParams,
     required CupertinoDefaultTimePickerParams cupertinoDefaultTimePickerParams,
   }) async {
@@ -77,7 +78,7 @@ sealed class DefaultTimeAndDatePicker {
           context: context,
           initialDate: DateTime.now(),
           firstDate: DateTime.now(),
-          locale: Locale(Platform.localeName),
+          locale: locale,
           lastDate: DateTime.now().add(
             const Duration(
               days: 720,
