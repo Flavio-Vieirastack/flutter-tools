@@ -77,6 +77,7 @@ sealed class DefaultTimeAndDatePicker {
           context: context,
           initialDate: DateTime.now(),
           firstDate: DateTime.now(),
+          locale: Locale(Platform.localeName),
           lastDate: DateTime.now().add(
             const Duration(
               days: 720,
