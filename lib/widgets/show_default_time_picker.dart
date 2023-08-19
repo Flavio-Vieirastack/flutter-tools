@@ -12,7 +12,6 @@ class ShowDefaultTimePicker {
     required CupertinoDefaultTimePickerParams cupertinoDefaultTimePickerParams,
     required DefaultTimePickerParams defaultTimePickerParams,
     required ValueChanged<DateTime> onAndroidTimePicked,
-    required Locale locale
   }) async {
     if (Platform.isAndroid) {
       final androidTimePicked =
@@ -21,7 +20,6 @@ class ShowDefaultTimePicker {
         initialTime: TimeOfDay.now(),
         cupertinoDefaultTimePickerParams: cupertinoDefaultTimePickerParams,
         defaultTimePickerParams: defaultTimePickerParams,
-        locale: locale,
       );
       onAndroidTimePicked.call(
         androidTimePicked ?? DateTime.now(),
@@ -32,7 +30,6 @@ class ShowDefaultTimePicker {
         initialTime: TimeOfDay.now(),
         cupertinoDefaultTimePickerParams: cupertinoDefaultTimePickerParams,
         defaultTimePickerParams: defaultTimePickerParams,
-        locale: locale,
       );
     }
   }
