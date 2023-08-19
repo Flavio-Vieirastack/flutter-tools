@@ -85,7 +85,7 @@ sealed class DefaultTimeAndDatePicker {
           cancelText: 'Cancelar'.translateTo('Cancel'),
           confirmText: 'Ok'.translateTo('Ok'),
         );
-        return date ?? DateTime.now();
+        return date;
       } else {
         final date = await showTimePicker(
             context: context,
@@ -97,8 +97,8 @@ sealed class DefaultTimeAndDatePicker {
           now.year,
           now.month,
           now.day,
-          date?.hour ?? 0,
-          date?.minute ?? 0,
+          date?.hour ?? now.hour,
+          date?.minute ?? now.minute,
         );
       }
     }
