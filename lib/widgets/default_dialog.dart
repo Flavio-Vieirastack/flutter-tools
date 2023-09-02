@@ -17,6 +17,7 @@ class DefaultDialog extends StatelessWidget {
   final String okButtonText;
   final String okButtonTextTranslate;
   final VoidCallback onOkButtonPressed;
+  final VoidCallback? onDeniedButtonPressed;
   final bool isLoading;
   final DefaultDialogParams defaultDialogParams;
   const DefaultDialog({
@@ -32,6 +33,7 @@ class DefaultDialog extends StatelessWidget {
     required this.onOkButtonPressed,
     required this.defaultDialogParams,
     this.isLoading = false,
+    this.onDeniedButtonPressed,
   }) : super(key: key);
 
   @override
@@ -53,7 +55,7 @@ class DefaultDialog extends StatelessWidget {
               ),
         actions: <Widget>[
           TextButton(
-            onPressed: () => context.pop(),
+            onPressed: onDeniedButtonPressed ?? () => context.pop(),
             child: Text(
               cancelButtonText.translateTo(
                 cancelButtonTextTranslate,
@@ -65,7 +67,7 @@ class DefaultDialog extends StatelessWidget {
             onPressed: onOkButtonPressed,
             child: Text(
               okButtonText.translateTo(okButtonTextTranslate),
-              style: defaultDialogParams.okButtonStyle
+              style: defaultDialogParams.okButtonStyle,
             ),
           ),
         ],
@@ -94,13 +96,15 @@ class DefaultDialog extends StatelessWidget {
               cancelButtonText.translateTo(
                 cancelButtonTextTranslate,
               ),
-              style: defaultDialogParams.cancelButtonStyle
+              style: defaultDialogParams.cancelButtonStyle,
             ),
           ),
           TextButton(
             onPressed: onOkButtonPressed,
             child: Text(
-              okButtonText.translateTo(okButtonTextTranslate),
+              okButtonText.translateTo(
+                okButtonTextTranslate,
+              ),
               style: defaultDialogParams.okButtonStyle,
             ),
           ),
