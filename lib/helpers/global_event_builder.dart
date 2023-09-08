@@ -12,6 +12,7 @@ class GlobalEventsBuilder extends StatefulWidget {
   final GlobalKey<NavigatorState> navigatorKey;
   final Widget noInternetPage;
   final Widget blockUserPagePage;
+  final bool mustAutoTranslateSnackbar;
   const GlobalEventsBuilder({
     Key? key,
     required this.child,
@@ -22,6 +23,7 @@ class GlobalEventsBuilder extends StatefulWidget {
     required this.blockUserPagePage,
     this.onInit,
     this.customEvents,
+    this.mustAutoTranslateSnackbar = true,
   }) : super(key: key);
 
   @override
@@ -44,6 +46,7 @@ class _GloblEventsBuilderState extends State<GlobalEventsBuilder> {
           event,
           widget.scaffoldMessengerKey,
           widget.navigatorKey,
+          autoTranslate: widget.mustAutoTranslateSnackbar,
         );
         OnAutoNavigateEvent.execute(
           event,

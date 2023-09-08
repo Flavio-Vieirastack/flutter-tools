@@ -1,4 +1,3 @@
-
 import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_tools/extensions/translate_extension.dart';
@@ -57,53 +56,104 @@ class OnBlockTouchEvent {
 
 class OnSnackbarEvent {
   static void execute(
-      dynamic event,
-      GlobalKey<ScaffoldMessengerState> scaffoldMessengerKey,
-      GlobalKey<NavigatorState> navigatorKey) {
-    if (event is SnackbarEvent) {
-      if (event.isErrorMessage) {
-        final navKey = navigatorKey;
-        showTopSnackBar(
-            navKey.currentState!.overlay!,
-            Material(
-              elevation: 0,
-              color: Colors.transparent,
-              child: AwesomeSnackbarContent(
-                title: 'Ops!'.translateTo('Ops!'),
-                message: event.message.translateTo(event.translate),
-                contentType: ContentType.failure,
+    dynamic event,
+    GlobalKey<ScaffoldMessengerState> scaffoldMessengerKey,
+    GlobalKey<NavigatorState> navigatorKey, {
+    required bool autoTranslate,
+  }) {
+    if (autoTranslate) {
+      if (event is SnackbarEvent) {
+        if (event.isErrorMessage) {
+          final navKey = navigatorKey;
+          showTopSnackBar(
+              navKey.currentState!.overlay!,
+              Material(
+                elevation: 0,
+                color: Colors.transparent,
+                child: AwesomeSnackbarContent(
+                  title: 'Ops!'.translateTo('Ops!'),
+                  message: event.message.translateTo(event.translate),
+                  contentType: ContentType.failure,
+                ),
               ),
-            ),
-            displayDuration: Duration(seconds: event.durationInSeconds));
-      } else if (event.isInfoMessage) {
-        final navKey = navigatorKey;
-        showTopSnackBar(
-            navKey.currentState!.overlay!,
-            Material(
-              elevation: 0,
-              color: Colors.transparent,
-              child: AwesomeSnackbarContent(
-                title: 'Atenção'.translateTo('Warning'),
-                color: Colors.orange,
-                message: event.message.translateTo(event.translate),
-                contentType: ContentType.warning,
+              displayDuration: Duration(seconds: event.durationInSeconds));
+        } else if (event.isInfoMessage) {
+          final navKey = navigatorKey;
+          showTopSnackBar(
+              navKey.currentState!.overlay!,
+              Material(
+                elevation: 0,
+                color: Colors.transparent,
+                child: AwesomeSnackbarContent(
+                  title: 'Atenção'.translateTo('Warning'),
+                  color: Colors.orange,
+                  message: event.message.translateTo(event.translate),
+                  contentType: ContentType.warning,
+                ),
               ),
-            ),
-            displayDuration: Duration(seconds: event.durationInSeconds));
-      } else if (event.isSuccessMessage) {
-        final navKey = navigatorKey;
-        showTopSnackBar(
-            navKey.currentState!.overlay!,
-            Material(
-              elevation: 0,
-              color: Colors.transparent,
-              child: AwesomeSnackbarContent(
-                title: 'Sucesso'.translateTo('Success'),
-                message: event.message.translateTo(event.translate),
-                contentType: ContentType.success,
+              displayDuration: Duration(seconds: event.durationInSeconds));
+        } else if (event.isSuccessMessage) {
+          final navKey = navigatorKey;
+          showTopSnackBar(
+              navKey.currentState!.overlay!,
+              Material(
+                elevation: 0,
+                color: Colors.transparent,
+                child: AwesomeSnackbarContent(
+                  title: 'Sucesso'.translateTo('Success'),
+                  message: event.message.translateTo(event.translate),
+                  contentType: ContentType.success,
+                ),
               ),
-            ),
-            displayDuration: Duration(seconds: event.durationInSeconds));
+              displayDuration: Duration(seconds: event.durationInSeconds));
+        }
+      }
+    } else {
+      if (event is SnackbarEvent) {
+        if (event.isErrorMessage) {
+          final navKey = navigatorKey;
+          showTopSnackBar(
+              navKey.currentState!.overlay!,
+              Material(
+                elevation: 0,
+                color: Colors.transparent,
+                child: AwesomeSnackbarContent(
+                  title: 'Ops!',
+                  message: event.message.translateTo(event.translate),
+                  contentType: ContentType.failure,
+                ),
+              ),
+              displayDuration: Duration(seconds: event.durationInSeconds));
+        } else if (event.isInfoMessage) {
+          final navKey = navigatorKey;
+          showTopSnackBar(
+              navKey.currentState!.overlay!,
+              Material(
+                elevation: 0,
+                color: Colors.transparent,
+                child: AwesomeSnackbarContent(
+                  title: 'Atenção',
+                  color: Colors.orange,
+                  message: event.message.translateTo(event.translate),
+                  contentType: ContentType.warning,
+                ),
+              ),
+              displayDuration: Duration(seconds: event.durationInSeconds));
+        } else if (event.isSuccessMessage) {
+          final navKey = navigatorKey;
+          showTopSnackBar(
+              navKey.currentState!.overlay!,
+              Material(
+                elevation: 0,
+                color: Colors.transparent,
+                child: AwesomeSnackbarContent(
+                  title: 'Sucesso',
+                  message: event.message.translateTo(event.translate),
+                  contentType: ContentType.success,
+                ),
+              ),
+              displayDuration: Duration(seconds: event.durationInSeconds));
+        }
       }
     }
   }
